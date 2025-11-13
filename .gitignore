@@ -57,3 +57,13 @@ prueba_*.py
 # Configuración local
 config_local.py
 local_settings.py
+
+# Backups
+backup_*/
+
+# Archivos de ejemplo y documentación interna
+*.xml
+*.docx
+*.doc
+ejemplo.*
+<cac:*
