@@ -1,4 +1,5 @@
-import mysql.connector
+import psycopg2
+import psycopg2.extras
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -42,23 +43,23 @@ class EnhancedXMLAnalyzer:
         }
 
     def connect_to_database(self):
-        """Conectar a la base de datos MySQL"""
+        """Conectar a la base de datos PostgreSQL"""
         try:
             # Intentar obtener credenciales desde Streamlit secrets (Cloud)
             if hasattr(st, 'secrets') and 'database' in st.secrets:
                 db_config = st.secrets['database']
-                self.connection = mysql.connector.connect(
+                self.connection = psycopg2.connect(
                     host=db_config.get('host', 'ocleminformatica.com'),
-                    port=int(db_config.get('port', 3306)),
+                    port=int(db_config.get('port', 5432)),
                     user=db_config.get('user', 'colossus'),
                     password=db_config['password'],
                     database=db_config.get('database', 'colossus_vgarcia')
                 )
             else:
                 # Fallback: credenciales locales (solo para desarrollo)
-                self.connection = mysql.connector.connect(
+                self.connection = psycopg2.connect(
                     host='ocleminformatica.com',
-                    port=3306,
+                    port=5432,
                     user='colossus',
                     password='OIN2020p$j',
                     database='colossus_vgarcia'
